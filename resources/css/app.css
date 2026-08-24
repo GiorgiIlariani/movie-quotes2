@@ -20,3 +20,14 @@
     --color-overlay: #efefef4d;
     --color-violet: #9747ff66;
 }
+
+.curtain-mask {
+    -webkit-mask-image: linear-gradient(#000, #000);
+    mask-image: linear-gradient(#000, #000);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: bottom;
+    mask-position: bottom;
+    -webkit-mask-size: 100% var(--curtain-open, 0%);
+    mask-size: 100% var(--curtain-open, 0%);
+}
