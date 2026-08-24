@@ -1,0 +1,67 @@
+---
+description: Parse -chat, -doc, and -feat:name flags; write per-prompt feature docs under doc/feats/
+alwaysApply: true
+---
+
+# Prompt flags
+
+Scan the **current user message** for these flags before doing anything else. Strip them from the task. They may appear anywhere, combined, and `-docs` is an alias for `-doc`.
+
+| Flag | Meaning |
+|------|---------|
+| `-chat` | Normal agent work. Do **not** write files under `doc/`. |
+| `-doc` / `-docs` | After the work is done, write one new markdown file for this prompt. |
+| `-feat:<name>` | Feature slug (folder under `doc/feats/`). Also writes a doc, same as `-doc`. |
+
+Default when no flags: `-chat`.
+
+## Feature folder
+
+- Path: `doc/feats/<feature-slug>/`
+- Slug: lowercase kebab-case (`quote-search`). From `-feat:<name>` when present.
+- `-doc` **without** `-feat:`: infer a short slug from the prompt (noun of the work). Reuse an existing folder if the name clearly matches; otherwise create a new one.
+- `-feat:` writes a new prompt file in that feature folder (creates the folder if needed).
+- `-chat` wins over `-doc` / `-feat` for documentation: do the work, skip the doc file.
+- Never overwrite a previous prompt file. Each documented prompt = one new file.
+
+## Doc file name
+
+`doc/feats/<feature-slug>/<YYYY-MM-DD>-<HHMM>-<short-slug>.md`
+
+Use the real date/time. `short-slug` is 3–6 kebab words from the prompt. If that path exists, append `-2`, `-3`, …
+
+Create `doc/feats/` and the feature folder as needed. Do not add an index unless asked.
+
+## When to write
+
+Write the doc **after** the implementation (or after the answer, if there was no code). Write it when `-doc` / `-docs` or `-feat:` is present, unless `-chat` is also present.
+
+Fill the template from what actually happened. Omit empty optional sections.
+
+```markdown
+# <Feature Title> — <Prompt Title>
+
+**Date:** YYYY-MM-DD HH:MM
+**Feature:** `<feature-slug>`
+**Flags:** <flags used>
+**Prompt:** <user message with flags stripped>
+
+## Summary
+
+<2–4 sentences: what changed and why.>
+
+## What was made
+
+- <user-visible outcome>
+- <files created / updated / deleted — paths only>
+
+## How it was made
+
+- <approach and key decisions>
+- <patterns, APIs, or commands used>
+- <tests or checks run, or none>
+
+## Follow-ups
+
+- <optional next steps; omit section if none>
+```
