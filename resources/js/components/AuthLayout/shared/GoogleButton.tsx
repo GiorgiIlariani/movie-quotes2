@@ -1,7 +1,6 @@
 import type { PropsWithChildren } from 'react';
-import { redirect } from '@/wayfinder/App/Http/Controllers/GoogleController';
-
 import GoogleIcon from '@/images/icons/Google.png';
+import { redirect } from '@/wayfinder/App/Http/Controllers/GoogleController';
 
 export function GoogleButton({ children }: PropsWithChildren) {
     return (

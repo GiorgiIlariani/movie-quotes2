@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Home/Home')->name('home');
 
-
 Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
     ->middleware('signed')
     ->name('verification.verify');
@@ -15,8 +14,6 @@ Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 've
 Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])
     ->middleware('throttle:verification-notification')
     ->name('verification.send');
-
-
 
 Route::middleware('guest')->group(function () {
     Route::post('/register', [UserController::class, 'store'])->name('register');
