@@ -6,10 +6,11 @@ use App\Http\Requests\SendEmailVerificationNotificationRequest;
 use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 
 class EmailVerificationController extends Controller
 {
-    public function verify(string $id, string $hash): JsonResponse
+    public function verify(string $id, string $hash): RedirectResponse
     {
         $user = User::find($id);
 
@@ -23,9 +24,7 @@ class EmailVerificationController extends Controller
             event(new Verified($user));
         }
 
-        return response()->json([
-            'message' => 'Email verified.',
-        ]);
+        return to_route('home');
     }
 
     public function send(SendEmailVerificationNotificationRequest $request): JsonResponse

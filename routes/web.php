@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Home/Home')->name('home');
 
-Route::post('/register', [UserController::class, 'store'])->name('register');
 
 Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
     ->middleware('signed')
@@ -15,3 +15,14 @@ Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 've
 Route::post('/email/verification-notification', [EmailVerificationController::class, 'send'])
     ->middleware('throttle:verification-notification')
     ->name('verification.send');
+
+
+
+Route::middleware('guest')->group(function () {
+    Route::post('/register', [UserController::class, 'store'])->name('register');
+
+    Route::controller(GoogleController::class)->group(function () {
+        Route::get('/auth/google/redirect', 'redirect')->name('google.redirect');
+        Route::get('/auth/google/callback', 'callback')->name('google.callback');
+    });
+});
