@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import type { ReactNode, SetStateAction } from 'react';
+import type { ReactNode } from 'react';
 
 export type AuthModal = 'login' | 'register' | 'forgotPassword';
 
