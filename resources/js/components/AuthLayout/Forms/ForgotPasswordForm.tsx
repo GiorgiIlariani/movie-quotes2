@@ -5,10 +5,8 @@ import { AuthFormLayout } from '@/components/AuthLayout/AuthFormLayout';
 import { AuthTextField } from '@/components/AuthLayout/shared/AuthTextField';
 
 import { useAuthModal } from '@/contexts/auth-modal-context';
-import {
-    forgotPasswordSchema,
-    ForgotPasswordValues,
-} from '@/schemas/auth-forms';
+import { forgotPasswordSchema } from '@/schemas/auth-forms';
+import type { ForgotPasswordValues } from '@/schemas/auth-forms';
 
 export function ForgotPasswordForm() {
     const { open } = useAuthModal();

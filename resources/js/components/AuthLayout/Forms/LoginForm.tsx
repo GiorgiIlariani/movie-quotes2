@@ -6,9 +6,10 @@ import { AuthPasswordField } from '@/components/AuthLayout/shared/AuthPasswordFi
 import { AuthTextField } from '@/components/AuthLayout/shared/AuthTextField';
 import { GoogleButton } from '@/components/AuthLayout/shared/GoogleButton';
 
-import { useAuthModal } from '@/contexts/auth-modal-context';
-import { loginSchema, LoginValues } from '@/schemas/auth-forms';
 import { Button } from '@/components/ui/button';
+import { useAuthModal } from '@/contexts/auth-modal-context';
+import { loginSchema } from '@/schemas/auth-forms';
+import type { LoginValues } from '@/schemas/auth-forms';
 
 export function LoginForm() {
     const { open } = useAuthModal();

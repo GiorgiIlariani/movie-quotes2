@@ -1,7 +1,7 @@
 import type { PropsWithChildren } from 'react';
 
-import GoogleIcon from '@/images/icons/Google.png';
 import { Button } from '@/components/ui/button';
+import GoogleIcon from '@/images/icons/Google.png';
 
 export function GoogleButton({ children }: PropsWithChildren) {
     return (
