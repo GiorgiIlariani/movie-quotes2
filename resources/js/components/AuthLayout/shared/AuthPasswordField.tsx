@@ -14,6 +14,7 @@ export function AuthPasswordField({
     label,
     error,
     className,
+    ...props
 }: AuthPasswordFieldProps) {
     const [visible, setVisible] = useState(false);
 
@@ -27,6 +28,7 @@ export function AuthPasswordField({
                 <input
                     id={id}
                     name={id}
+                    {...props}
                     type={visible ? 'text' : 'password'}
                     className={cn(
                         'h-10 w-full rounded-sm bg-white px-3 pr-10 text-sm text-black outline-none placeholder:text-muted focus-visible:ring-2 focus-visible:ring-brand/40',

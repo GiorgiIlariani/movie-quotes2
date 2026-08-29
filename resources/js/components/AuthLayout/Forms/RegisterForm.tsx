@@ -12,13 +12,21 @@ import { registerFields } from './helper';
 export function RegisterForm() {
     const { open } = useAuthModal();
 
+    const handleSuccess = () => {
+        open('checkEmail');
+    };
+
     return (
         <AuthFormLayout
             title="Create an account"
             description="Start your journey!"
         >
-            <Form className="flex flex-col gap-4" action={store()}>
-                {({ errors }) => (
+            <Form
+                className="flex flex-col gap-4"
+                action={store()}
+                onSuccess={handleSuccess}
+            >
+                {({ errors, validate }) => (
                     <>
                         {registerFields.map((field) =>
                             field.type === 'password' ? (
@@ -27,6 +35,7 @@ export function RegisterForm() {
                                     id={field.id}
                                     label={field.label}
                                     placeholder={field.placeholder}
+                                    onChange={() => validate(field.id)}
                                     error={errors[field.id]}
                                 />
                             ) : (
@@ -36,6 +45,7 @@ export function RegisterForm() {
                                     label={field.label}
                                     type={field.type}
                                     placeholder={field.placeholder}
+                                    onChange={() => validate(field.id)}
                                     error={errors[field.id]}
                                 />
                             ),

@@ -56,6 +56,10 @@ class AppServiceProvider extends ServiceProvider
 
     protected function configureRateLimiting(): void
     {
+        RateLimiter::for('login', function (Request $request) {
+            return Limit::perMinute(5)->by($request->ip().'|'.Str::lower((string) $request->input('email')));
+        });
+
         RateLimiter::for('verification-notification', function (Request $request) {
             return Limit::perMinute(6)->by($request->ip().'|'.Str::lower((string) $request->input('email')));
         });

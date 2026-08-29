@@ -1,7 +1,14 @@
 import { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
 
-export type AuthModal = 'login' | 'register' | 'forgotPassword';
+export type AuthModal =
+    | 'login'
+    | 'register'
+    | 'forgotPassword'
+    | 'passwordChanged'
+    | 'linkExpired'
+    | 'checkEmail'
+    | 'thankYou';
 
 type AuthModalContextValue = {
     modal: AuthModal | null;
@@ -12,7 +19,7 @@ type AuthModalContextValue = {
 const AuthModalContext = createContext<AuthModalContextValue | null>(null);
 
 export function AuthModalProvider({ children }: { children: ReactNode }) {
-    const [modal, setModal] = useState<AuthModal | null>('register');
+    const [modal, setModal] = useState<AuthModal | null>(null);
 
     const open = (modal: AuthModal) => {
         setModal(modal);

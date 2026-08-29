@@ -31,3 +31,7 @@
     -webkit-mask-size: 100% var(--curtain-open, 0%);
     mask-size: 100% var(--curtain-open, 0%);
 }
+
+.actionBtn {
+    @apply cursor-pointer rounded-sm px-6 py-4.5 text-white;
+}

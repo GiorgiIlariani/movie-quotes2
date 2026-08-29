@@ -7,6 +7,7 @@ import cover3 from '@/images/HomeCover_3.png';
 import CurtainPanel from './components/CurtainPanel';
 import Footer from './components/Footer';
 import MainCurtain from './components/MainCurtain';
+import Navbar from './components/Navbar';
 
 // Temporary data
 const covers = [
@@ -51,6 +52,7 @@ export default function Home() {
 
     return (
         <>
+            <Navbar />
             <main ref={containerRef} className="h-[500dvh] bg-black">
                 <div className="sticky top-0 grid h-dvh overflow-hidden bg-black">
                     <MainCurtain />
