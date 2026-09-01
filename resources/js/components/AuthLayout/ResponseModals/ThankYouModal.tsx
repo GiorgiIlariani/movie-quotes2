@@ -1,5 +1,5 @@
-import { ResponseModalLayout } from './ResponseModalLayout';
 import EmailSent from '@/images/icons/EmailSent.png';
+import { ResponseModalLayout } from './ResponseModalLayout';
 
 export function ThankYouModal() {
     return (

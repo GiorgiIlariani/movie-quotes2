@@ -1,5 +1,5 @@
-import { ResponseModalLayout } from './ResponseModalLayout';
 import Expired from '@/images/icons/Expired.png';
+import { ResponseModalLayout } from './ResponseModalLayout';
 
 export function LinkExpiredModal() {
     return (

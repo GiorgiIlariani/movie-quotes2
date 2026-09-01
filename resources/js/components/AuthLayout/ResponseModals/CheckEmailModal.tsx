@@ -1,6 +1,6 @@
 import { useAuthModal } from '@/contexts/auth-modal-context';
-import { ResponseModalLayout } from './ResponseModalLayout';
 import EmailSent from '@/images/icons/EmailSent.png';
+import { ResponseModalLayout } from './ResponseModalLayout';
 
 export function CheckEmailModal() {
     const { close } = useAuthModal();

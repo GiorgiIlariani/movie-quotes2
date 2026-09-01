@@ -7,6 +7,7 @@ import { destroy } from '@/wayfinder/App/Http/Controllers/SessionController';
 const Navbar = () => {
     const { user } = usePage().props.auth;
     const { open } = useAuthModal();
+
     return (
         <header className="fixed top-0 left-0 z-10 w-full">
             <nav className="flex items-center justify-between px-4 py-7 md:px-18 md:py-8">

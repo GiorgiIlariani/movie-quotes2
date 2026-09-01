@@ -1,6 +1,6 @@
 import { useAuthModal } from '@/contexts/auth-modal-context';
-import { ResponseModalLayout } from './ResponseModalLayout';
 import Success from '@/images/icons/Success.png';
+import { ResponseModalLayout } from './ResponseModalLayout';
 
 export function PasswordChangedModal() {
     const { open } = useAuthModal();
