@@ -20,7 +20,10 @@ Run after route changes if Vite plugin isn't installed:
 ```bash
 php artisan wayfinder:generate --no-interaction
 ```
-This project uses `laravel/wayfinder:dev-next`. Do **not** pass `--with-form`; that flag was removed. Form helpers (`.form()`) are controlled by `WAYFINDER_GENERATE_FORM_VARIANT` / `config/wayfinder.php` (`generate.route.form_variant`). The Vite plugin must not set `formVariants: true` (it still appends `--with-form` and Vite will fail).
+For form helpers, use `--with-form` flag:
+```bash
+php artisan wayfinder:generate --with-form --no-interaction
+```
 
 ### Import Patterns
 

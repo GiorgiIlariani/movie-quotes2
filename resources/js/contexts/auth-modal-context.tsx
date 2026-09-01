@@ -12,7 +12,7 @@ type AuthModalContextValue = {
 const AuthModalContext = createContext<AuthModalContextValue | null>(null);
 
 export function AuthModalProvider({ children }: { children: ReactNode }) {
-    const [modal, setModal] = useState<AuthModal | null>(null);
+    const [modal, setModal] = useState<AuthModal | null>('register');
 
     const open = (modal: AuthModal) => {
         setModal(modal);

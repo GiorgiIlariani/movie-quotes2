@@ -1,15 +1,15 @@
-import type { RegisterValues } from '@/schemas/auth-forms';
+type FieldIdTypes = 'name' | 'email' | 'password' | 'confirmPassword';
 
 type RegisterField = {
-    id: keyof RegisterValues;
+    id: FieldIdTypes;
     label: string;
-    type: string;
+    type: 'text' | 'email' | 'password';
     placeholder: string;
 };
 
 export const registerFields: RegisterField[] = [
     {
-        id: 'username',
+        id: 'name',
         label: 'Name',
         type: 'text',
         placeholder: 'At least 3 characters & lower case characters',
