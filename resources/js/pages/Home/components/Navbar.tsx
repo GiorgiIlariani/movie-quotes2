@@ -3,6 +3,7 @@ import { Form, Link, usePage } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
 import { useAuthModal } from '@/contexts/auth-modal-context';
 import { destroy } from '@/wayfinder/App/Http/Controllers/SessionController';
+import { home } from '@/wayfinder/routes';
 
 const Navbar = () => {
     const { user } = usePage().props.auth;
@@ -11,7 +12,7 @@ const Navbar = () => {
     return (
         <header className="fixed top-0 left-0 z-10 w-full">
             <nav className="flex items-center justify-between px-4 py-7 md:px-18 md:py-8">
-                <Link href="/" className="text-cream uppercase">
+                <Link href={home.url()} className="text-cream uppercase">
                     Movie Quotes
                 </Link>
 

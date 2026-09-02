@@ -16,7 +16,7 @@ class SessionStoreRequest extends FormRequest
     {
         return [
             'nameOrEmail' => ['required', 'string', 'min:3'],
-            'password' => ['required', 'string', 'min:8', 'max:15'],
+            'password' => ['required', 'string'],
             'remember_me' => ['boolean'],
         ];
     }

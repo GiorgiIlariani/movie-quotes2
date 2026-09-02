@@ -36,7 +36,7 @@ class EmailVerificationController extends Controller
         }
 
         return response()->json([
-            'message' => 'Verification link sent.',
+            'message' => __('Verification link sent.'),
         ]);
     }
 }

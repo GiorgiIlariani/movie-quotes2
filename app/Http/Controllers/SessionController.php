@@ -17,15 +17,19 @@ class SessionController extends Controller
     {
         if (! Auth::attempt($request->credentials(), $request->boolean('remember_me'))) {
             throw ValidationException::withMessages([
-                'error' => 'Invalid user or password.',
+                'error' => __('auth.failed'),
             ]);
         }
 
         if (! $request->user()->hasVerifiedEmail()) {
             Auth::logout();
 
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
             throw ValidationException::withMessages([
-                'error' => 'Your email address is not verified.',
+                // Temporary message before adding the custom lang files
+                'error' => __('Your email address is not verified.'),
             ]);
         }
 
