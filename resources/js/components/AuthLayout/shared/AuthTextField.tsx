@@ -12,6 +12,7 @@ export function AuthTextField({
     label,
     error,
     className,
+    ...props
 }: AuthTextFieldProps) {
     return (
         <div className="flex flex-col gap-2">
@@ -26,6 +27,7 @@ export function AuthTextField({
                     error && 'ring-2 ring-brand',
                     className,
                 )}
+                {...props}
             />
             {error ? <p className="text-sm text-brand">{error}</p> : null}
         </div>

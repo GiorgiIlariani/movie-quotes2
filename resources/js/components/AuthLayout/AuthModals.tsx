@@ -1,6 +1,10 @@
 import { ForgotPasswordForm } from '@/components/AuthLayout/Forms/ForgotPasswordForm';
 import { LoginForm } from '@/components/AuthLayout/Forms/LoginForm';
 import { RegisterForm } from '@/components/AuthLayout/Forms/RegisterForm';
+import { CheckEmailModal } from '@/components/AuthLayout/ResponseModals/CheckEmailModal';
+import { LinkExpiredModal } from '@/components/AuthLayout/ResponseModals/LinkExpiredModal';
+import { PasswordChangedModal } from '@/components/AuthLayout/ResponseModals/PasswordChangedModal';
+import { ThankYouModal } from '@/components/AuthLayout/ResponseModals/ThankYouModal';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useAuthModal } from '@/contexts/auth-modal-context';
 
@@ -23,6 +27,10 @@ export function AuthModals() {
                 {modal === 'register' ? <RegisterForm /> : null}
                 {modal === 'login' ? <LoginForm /> : null}
                 {modal === 'forgotPassword' ? <ForgotPasswordForm /> : null}
+                {modal === 'passwordChanged' ? <PasswordChangedModal /> : null}
+                {modal === 'linkExpired' ? <LinkExpiredModal /> : null}
+                {modal === 'checkEmail' ? <CheckEmailModal /> : null}
+                {modal === 'thankYou' ? <ThankYouModal /> : null}
             </DialogContent>
         </Dialog>
     );

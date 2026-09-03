@@ -1,85 +1,79 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { Form } from '@inertiajs/react';
 
 import { AuthFormLayout } from '@/components/AuthLayout/AuthFormLayout';
 import { AuthPasswordField } from '@/components/AuthLayout/shared/AuthPasswordField';
 import { AuthTextField } from '@/components/AuthLayout/shared/AuthTextField';
 import { GoogleButton } from '@/components/AuthLayout/shared/GoogleButton';
-
 import { Button } from '@/components/ui/button';
 import { useAuthModal } from '@/contexts/auth-modal-context';
-import { loginSchema } from '@/schemas/auth-forms';
-import type { LoginValues } from '@/schemas/auth-forms';
+import { store } from '@/wayfinder/App/Http/Controllers/SessionController';
 
 export function LoginForm() {
-    const { open } = useAuthModal();
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<LoginValues>({
-        resolver: zodResolver(loginSchema),
-        defaultValues: {
-            email: '',
-            password: '',
-            remember: false,
-        },
-    });
+    const { open, close } = useAuthModal();
 
     return (
         <AuthFormLayout
             title="Log in to your account"
             description="Welcome back! Please enter your details."
         >
-            <form
+            <Form
                 className="flex flex-col gap-4"
-                onSubmit={handleSubmit(() => undefined)}
-                noValidate
+                action={store()}
+                onSuccess={close}
             >
-                <AuthTextField
-                    id="login-email"
-                    label="Email"
-                    type="email"
-                    placeholder="Enter your email"
-                    error={errors.email?.message}
-                    {...register('email')}
-                />
-                <AuthPasswordField
-                    id="login-password"
-                    label="Password"
-                    placeholder="Password"
-                    error={errors.password?.message}
-                    {...register('password')}
-                />
-                <div className="flex items-center justify-between">
-                    <label className="flex items-center gap-2 text-sm text-white">
-                        <input
-                            type="checkbox"
-                            className="size-4 rounded-sm border-white accent-brand"
-                            {...register('remember')}
+                {({ errors }) => (
+                    <>
+                        <AuthTextField
+                            id="nameOrEmail"
+                            label="Email or username"
+                            type="text"
+                            placeholder="Enter your email or username"
+                            error={errors.nameOrEmail}
                         />
-                        Remember me
-                    </label>
-                    <button
-                        type="button"
-                        onClick={() => {
-                            open('forgotPassword');
-                        }}
-                        className="text-sm text-info hover:underline"
-                    >
-                        Forgot password
-                    </button>
-                </div>
-                <div className="flex flex-col gap-3 pt-2">
-                    <Button
-                        type="submit"
-                        className="h-10 w-full cursor-pointer rounded-sm bg-brand text-sm text-white transition-colors hover:bg-brand/90"
-                    >
-                        Sign in
-                    </Button>
-                    <GoogleButton>Sign in with Google</GoogleButton>
-                </div>
-            </form>
+                        <AuthPasswordField
+                            id="password"
+                            label="Password"
+                            placeholder="Password"
+                            error={errors.password}
+                        />
+                        <div className="flex items-center justify-between">
+                            <label className="flex items-center gap-2 text-sm text-white">
+                                <input
+                                    type="checkbox"
+                                    name="remember_me"
+                                    className="size-4 rounded-sm border-white accent-brand"
+                                />
+                                Remember me
+                            </label>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    open('forgotPassword');
+                                }}
+                                className="text-sm text-info hover:underline"
+                            >
+                                Forgot password
+                            </button>
+                        </div>
+
+                        {errors.error && (
+                            <p className="mx-auto text-sm text-brand">
+                                {errors.error}
+                            </p>
+                        )}
+
+                        <div className="flex flex-col gap-3 pt-2">
+                            <Button
+                                type="submit"
+                                className="h-10 w-full cursor-pointer rounded-sm bg-brand text-sm text-white transition-colors hover:bg-brand/90"
+                            >
+                                Sign in
+                            </Button>
+                            <GoogleButton>Sign in with Google</GoogleButton>
+                        </div>
+                    </>
+                )}
+            </Form>
 
             <p className="text-center text-sm text-white/70">
                 Don&apos;t have an account?{' '}
