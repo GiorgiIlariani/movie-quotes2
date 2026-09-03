@@ -12,7 +12,7 @@ const Navbar = () => {
     return (
         <header className="fixed top-0 left-0 z-10 w-full">
             <nav className="flex items-center justify-between px-4 py-7 md:px-18 md:py-8">
-                <Link href={home.url()} className="text-cream uppercase">
+                <Link href={home()} className="text-cream uppercase">
                     Movie Quotes
                 </Link>
 
