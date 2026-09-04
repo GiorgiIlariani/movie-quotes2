@@ -21,6 +21,10 @@
     --color-violet: #9747ff66;
 }
 
+.main-layout-bg {
+    background: linear-gradient(180deg, #181623 0%, #191725 50%, #0d0b14 100%);
+}
+
 .curtain-mask {
     -webkit-mask-image: linear-gradient(#000, #000);
     mask-image: linear-gradient(#000, #000);

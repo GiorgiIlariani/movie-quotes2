@@ -31,4 +31,6 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
+
+    Route::inertia('/movies', 'Movies/Movies')->name('movies');
 });
