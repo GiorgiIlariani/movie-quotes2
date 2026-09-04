@@ -1,4 +1,7 @@
 import { Form } from '@inertiajs/react';
+
+import { store } from '@/wayfinder/routes/movies';
+
 import { movieFormFields } from '../helper';
 import { MovieTextArea } from './MovieTextArea';
 import { MovieTextField } from './MovieTextField';
@@ -10,6 +13,7 @@ type Props = {
 const MovieForm = ({ onOpenChange }: Props) => {
     return (
         <Form
+            action={store()}
             encType="multipart/form-data"
             className="mx-auto flex w-full flex-col gap-4 px-12"
             onSuccess={() => onOpenChange(false)}

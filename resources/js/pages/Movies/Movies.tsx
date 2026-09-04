@@ -2,22 +2,33 @@ import { PlusSquare } from 'lucide-react';
 import { useState } from 'react';
 
 import MainLayout from '@/components/MainLayout/MainLayout';
+import type { Movie } from '@/types';
 
+import MovieCard from './components/MovieCard';
 import { CreateMovieModal } from './components/MovieModal';
 
-const Movies = () => {
+type MoviesPageProps = {
+    movies: {
+        data: Movie[];
+    };
+};
+
+const Movies = ({ movies }: MoviesPageProps) => {
     const [createOpen, setCreateOpen] = useState(false);
 
     return (
         <MainLayout>
-            <div className="flex items-center justify-between gap-4">
-                <h2 className="text-2xl font-medium text-white">
-                    My list of movies
+            <div className="flex items-center justify-between gap-1 px-8">
+                <h2 className="flex flex-col gap-1 px-1 text-2xl font-medium text-white lg:flex-row lg:items-center">
+                    <span className="mr-2">My list of movies</span>
+                    <span className="text-sm lg:text-2xl">
+                        (Total {movies.data.length})
+                    </span>
                 </h2>
                 <button
                     type="button"
                     onClick={() => setCreateOpen(true)}
-                    className="actionBtn flex items-center gap-2 bg-brand py-2! hover:bg-brand/90"
+                    className="actionBtn flex items-center gap-2 bg-brand px-2! py-2! hover:bg-brand/90"
                 >
                     <PlusSquare className="size-5" strokeWidth={2} />
                     <span>Add movie</span>
@@ -25,6 +36,11 @@ const Movies = () => {
             </div>
 
             <CreateMovieModal open={createOpen} onOpenChange={setCreateOpen} />
+            <section className="mt-6 grid gap-15 px-8 sm:grid-cols-2 xl:grid-cols-3">
+                {movies.data.map((movie) => (
+                    <MovieCard key={movie.id} movie={movie} />
+                ))}
+            </section>
         </MainLayout>
     );
 };
