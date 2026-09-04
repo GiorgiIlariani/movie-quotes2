@@ -2,24 +2,17 @@
 
 namespace App\Actions;
 
+use App\Http\Requests\StoreMovieRequest;
 use App\Models\Movie;
 use App\Models\User;
-use Illuminate\Http\UploadedFile;
 
+/**
+ * @phpstan-import-type MovieDetails from StoreMovieRequest
+ */
 class CreateMovie
 {
     /**
-     * @param  array{
-     *     title_en: string,
-     *     title_ka: string,
-     *     director_en: string,
-     *     director_ka: string,
-     *     description_en: string,
-     *     description_ka: string,
-     *     release_year: int,
-     *     cover: UploadedFile,
-     *     categories?: list<int>
-     * }  $movieDetails
+     * @param  MovieDetails  $movieDetails
      */
     public function handle(array $movieDetails, User $user): Movie
     {

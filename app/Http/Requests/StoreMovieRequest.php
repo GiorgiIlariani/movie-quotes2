@@ -5,6 +5,18 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 
+/**
+ * @phpstan-type MovieDetails array{
+ *     title_en: string,
+ *     title_ka: string,
+ *     director_en: string,
+ *     director_ka: string,
+ *     description_en: string,
+ *     description_ka: string,
+ *     release_year: int,
+ *     cover: UploadedFile
+ * }
+ */
 class StoreMovieRequest extends FormRequest
 {
     /**
@@ -25,20 +37,11 @@ class StoreMovieRequest extends FormRequest
     }
 
     /**
-     * @return array{
-     *     title_en: string,
-     *     title_ka: string,
-     *     director_en: string,
-     *     director_ka: string,
-     *     description_en: string,
-     *     description_ka: string,
-     *     release_year: int,
-     *     cover: UploadedFile
-     * }
+     * @return MovieDetails
      */
     public function movieDetails(): array
     {
-        /** @var array{title_en: string, title_ka: string, director_en: string, director_ka: string, description_en: string, description_ka: string, release_year: int, cover: UploadedFile} $validated */
+        /** @var MovieDetails $validated */
         $validated = $this->validated();
 
         return $validated;
