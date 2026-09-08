@@ -12,15 +12,12 @@ import Avatar from '@/images/Avatar.png';
 
 import MovieForm from './MovieForm';
 
-type CreateMovieModalProps = {
+type MovieModalProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
 };
 
-export const CreateMovieModal = ({
-    open,
-    onOpenChange,
-}: CreateMovieModalProps) => {
+const MovieModal = ({ open, onOpenChange }: MovieModalProps) => {
     const user = usePage().props.auth.user;
     const { movies } = useTranslations();
 
@@ -53,3 +50,5 @@ export const CreateMovieModal = ({
         </Dialog>
     );
 };
+
+export default MovieModal;

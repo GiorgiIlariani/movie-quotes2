@@ -3,7 +3,7 @@ import { Form } from '@inertiajs/react';
 import { useTranslations } from '@/hooks/use-translations';
 import { store } from '@/wayfinder/routes/movies';
 
-import { movieFormFields } from '../helper';
+import { movieFormFields } from './helper';
 import { MovieTextArea } from './MovieTextArea';
 import { MovieTextField } from './MovieTextField';
 
@@ -16,7 +16,7 @@ const MovieForm = ({ onOpenChange }: Props) => {
 
     return (
         <Form
-            action={store()}
+            {...store.form()}
             encType="multipart/form-data"
             className="mx-auto flex w-full flex-col gap-4 px-12"
             onSuccess={() => onOpenChange(false)}

@@ -1,5 +1,6 @@
 import { Form } from '@inertiajs/react';
 import { Pencil, Trash2 } from 'lucide-react';
+
 import { destroy } from '@/wayfinder/routes/movies';
 
 type Props = {
@@ -8,6 +9,7 @@ type Props = {
     release_year: number;
     director: string;
     description: string;
+    onOpenModal: () => void;
 };
 
 const MovieDetails = ({
@@ -16,6 +18,7 @@ const MovieDetails = ({
     id,
     director,
     description,
+    onOpenModal,
 }: Props) => {
     return (
         <section className="flex min-w-0 flex-col gap-4 wrap-break-word">
@@ -26,7 +29,11 @@ const MovieDetails = ({
                 </h3>
 
                 <div className="flex w-max items-center justify-between gap-3 rounded-xl bg-surface px-4 py-2">
-                    <button className="cursor-pointer">
+                    <button
+                        type="button"
+                        onClick={onOpenModal}
+                        className="cursor-pointer"
+                    >
                         <Pencil className="size-4.5" />
                     </button>
 

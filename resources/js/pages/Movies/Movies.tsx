@@ -2,11 +2,11 @@ import { PlusSquare } from 'lucide-react';
 import { useState } from 'react';
 
 import MainLayout from '@/components/MainLayout/MainLayout';
+import MovieModal from '@/components/modals/MovieModal';
 import { useTranslations } from '@/hooks/use-translations';
 import type { Movie } from '@/types';
 
 import MovieCard from './components/MovieCard';
-import { CreateMovieModal } from './components/MovieModal';
 
 type MoviesPageProps = {
     movies: {
@@ -15,7 +15,7 @@ type MoviesPageProps = {
 };
 
 const Movies = ({ movies }: MoviesPageProps) => {
-    const [createOpen, setCreateOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
     const { movies: t } = useTranslations();
 
     return (
@@ -29,7 +29,7 @@ const Movies = ({ movies }: MoviesPageProps) => {
                 </h2>
                 <button
                     type="button"
-                    onClick={() => setCreateOpen(true)}
+                    onClick={() => setModalOpen(true)}
                     className="actionBtn flex items-center gap-2 bg-brand px-2! py-2! hover:bg-brand/90"
                 >
                     <PlusSquare className="size-5" strokeWidth={2} />
@@ -37,7 +37,8 @@ const Movies = ({ movies }: MoviesPageProps) => {
                 </button>
             </div>
 
-            <CreateMovieModal open={createOpen} onOpenChange={setCreateOpen} />
+            <MovieModal open={modalOpen} onOpenChange={setModalOpen} />
+
             <section className="mt-6 grid gap-15 px-8 sm:grid-cols-2 xl:grid-cols-3">
                 {movies.data.map((movie) => (
                     <MovieCard key={movie.id} movie={movie} />
