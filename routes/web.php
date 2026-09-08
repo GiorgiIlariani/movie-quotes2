@@ -38,8 +38,9 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(MovieController::class)->group(function () {
         Route::get('/movies', 'index')->name('movies.index');
-
         Route::post('/movies', 'store')->name('movies.store');
+        Route::get('/movies/{movie}', 'show')->name('movies.show')->can('workWith', 'movie');
+        Route::delete('/movies/{movie}', 'destroy')->name('movies.destroy')->can('workWith', 'movie');
     });
 
 });

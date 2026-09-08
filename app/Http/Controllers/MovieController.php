@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\CreateMovie;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Resources\MovieResource;
+use App\Models\Movie;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -36,6 +37,26 @@ class MovieController extends Controller
     public function store(StoreMovieRequest $request, CreateMovie $action): RedirectResponse
     {
         $action->handle($request->movieDetails(), $request->user());
+
+        return to_route('movies.index');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Movie $movie): Response
+    {
+        return Inertia::render('Movie/Movie', [
+            'movie' => new MovieResource($movie),
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Movie $movie): RedirectResponse
+    {
+        $movie->delete();
 
         return to_route('movies.index');
     }
