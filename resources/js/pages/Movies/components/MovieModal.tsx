@@ -7,6 +7,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+import { useTranslations } from '@/hooks/use-translations';
 import Avatar from '@/images/Avatar.png';
 
 import MovieForm from './MovieForm';
@@ -21,6 +22,7 @@ export const CreateMovieModal = ({
     onOpenChange,
 }: CreateMovieModalProps) => {
     const user = usePage().props.auth.user;
+    const { movies } = useTranslations();
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
@@ -30,22 +32,20 @@ export const CreateMovieModal = ({
             >
                 <DialogHeader className="items-center border-b border-gray-500 pb-8 text-center">
                     <DialogTitle className="text-2xl font-medium text-white">
-                        Add Movie
+                        {movies.add_movie_title}
                     </DialogTitle>
                     <DialogDescription className="sr-only">
-                        Create a new movie with English and Georgian details.
+                        {movies.add_movie_description}
                     </DialogDescription>
                 </DialogHeader>
 
                 <div className="my-4 flex items-center gap-3 px-12">
                     <img
                         src={user?.avatar ?? Avatar}
-                        alt="user profile"
+                        alt={movies.user_profile}
                         className="size-10 rounded-full object-cover"
                     />
-                    <p className="text-base text-white">
-                        {user?.name ?? 'Guest'}
-                    </p>
+                    <p className="text-base text-white">{user.name}</p>
                 </div>
 
                 <MovieForm onOpenChange={onOpenChange} />

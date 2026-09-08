@@ -1,5 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
 
+import { useTranslations } from '@/hooks/use-translations';
 import Avatar from '@/images/Avatar.png';
 import { cn } from '@/lib/utils';
 import { navLinks } from '../helper';
@@ -7,6 +8,7 @@ import { navLinks } from '../helper';
 const Navigation = () => {
     const { url } = usePage();
     const user = usePage().props.auth.user;
+    const { nav } = useTranslations();
 
     return (
         <nav className="flex flex-col gap-10 px-12 py-10 text-white">
@@ -17,9 +19,9 @@ const Navigation = () => {
                     className="size-10 rounded-full object-cover"
                 />
                 <div className="flex flex-col items-start">
-                    <p className="text-xl">{user?.name ?? 'Guest'}</p>
+                    <p className="text-xl">{user.name}</p>
                     <button className="text-sm text-white/60 hover:text-white">
-                        Edit your profile
+                        {nav.edit_profile}
                     </button>
                 </div>
             </div>
@@ -39,7 +41,7 @@ const Navigation = () => {
                             )}
                         >
                             <link.icon className="size-6" />
-                            <span>{link.label}</span>
+                            <span>{nav[link.id]}</span>
                         </Link>
                     );
                 })}

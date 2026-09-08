@@ -1,5 +1,6 @@
 import { Form } from '@inertiajs/react';
 
+import { useTranslations } from '@/hooks/use-translations';
 import { store } from '@/wayfinder/routes/movies';
 
 import { movieFormFields } from '../helper';
@@ -11,6 +12,8 @@ type Props = {
 };
 
 const MovieForm = ({ onOpenChange }: Props) => {
+    const { movies } = useTranslations();
+
     return (
         <Form
             action={store()}
@@ -25,7 +28,7 @@ const MovieForm = ({ onOpenChange }: Props) => {
                             <MovieTextArea
                                 key={field.id}
                                 id={field.id}
-                                label={field.label}
+                                label={movies[field.id]}
                                 lang={field.lang}
                                 error={errors[field.id]}
                             />
@@ -33,7 +36,7 @@ const MovieForm = ({ onOpenChange }: Props) => {
                             <MovieTextField
                                 key={field.id}
                                 id={field.id}
-                                label={field.label}
+                                label={movies[field.id]}
                                 lang={field.lang}
                                 type={field.type}
                                 error={errors[field.id]}
@@ -46,7 +49,7 @@ const MovieForm = ({ onOpenChange }: Props) => {
                         disabled={processing}
                         className="actionBtn mt-4 w-full bg-brand py-2! hover:bg-brand/90 disabled:opacity-60"
                     >
-                        Add movie
+                        {movies.add_movie}
                     </button>
                 </>
             )}

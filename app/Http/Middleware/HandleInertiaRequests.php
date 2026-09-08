@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Lang;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -40,6 +42,16 @@ class HandleInertiaRequests extends Middleware
             'name' => config('app.name'),
             'auth' => [
                 'user' => $request->user(),
+            ],
+            'locale' => App::currentLocale(),
+            'translations' => fn () => [
+                'common' => Lang::get('common'),
+                'header' => Lang::get('header'),
+                'nav' => Lang::get('navigation'),
+                'home' => Lang::get('home'),
+                'auth' => Lang::get('auth_ui'),
+                'movies' => Lang::get('movies'),
+                'locale' => Lang::get('locale'),
             ],
         ];
     }

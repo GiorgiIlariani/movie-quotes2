@@ -2,12 +2,15 @@
 
 use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'Home/Home')->name('home');
+
+Route::post('/locale', [LocaleController::class, 'update'])->name('locale.update');
 
 Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])
     ->middleware('signed')

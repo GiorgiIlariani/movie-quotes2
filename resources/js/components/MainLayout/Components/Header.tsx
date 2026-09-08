@@ -1,30 +1,31 @@
 import { Form, Link } from '@inertiajs/react';
-import { ChevronDown } from 'lucide-react';
 
+import LocaleSelect from '@/components/MainLayout/Components/LocaleSelect';
 import { Button } from '@/components/ui/button';
+import { useTranslations } from '@/hooks/use-translations';
 import Bell from '@/images/icons/Bell.png';
 import { destroy } from '@/wayfinder/App/Http/Controllers/SessionController';
 import { home } from '@/wayfinder/routes';
 
 const Header = () => {
+    const { header } = useTranslations();
+
     return (
         <header className="flex items-center justify-between bg-surface px-16 py-6 text-white">
             <Link href={home()} className="text-cream uppercase">
-                Movie Quotes
+                {header.brand}
             </Link>
 
             <div className="flex items-center gap-6">
                 <button type="button" className="relative cursor-pointer">
-                    <img src={Bell} alt="Notifications" className="size-6" />
+                    <img
+                        src={Bell}
+                        alt={header.notifications}
+                        className="size-6"
+                    />
                 </button>
 
-                <button
-                    type="button"
-                    className="flex cursor-pointer items-center gap-1"
-                >
-                    Eng
-                    <ChevronDown className="size-4" />
-                </button>
+                <LocaleSelect />
 
                 <Form action={destroy()}>
                     <Button
@@ -32,7 +33,7 @@ const Header = () => {
                         variant="outline"
                         className="actionBtn bg-transparent"
                     >
-                        Log out
+                        {header.log_out}
                     </Button>
                 </Form>
             </div>
