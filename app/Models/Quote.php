@@ -5,23 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Translatable\Attributes\Translatable;
 use Spatie\Translatable\HasTranslations;
 
-#[Fillable(['title', 'release_year', 'director', 'description', 'user_id'])]
-#[Translatable('title', 'director', 'description')]
-class Movie extends Model implements HasMedia
+#[Fillable(['quote', 'movie_id', 'user_id'])]
+#[Translatable('quote')]
+class Quote extends Model implements HasMedia
 {
     use HasTranslations;
     use InteractsWithMedia;
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('movie_cover')
+        $this->addMediaCollection('quote_cover')
             ->singleFile();
     }
 
@@ -34,20 +32,10 @@ class Movie extends Model implements HasMedia
     }
 
     /**
-     * @return BelongsToMany<Category, $this>
+     * @return BelongsTo<Movie, $this>
      */
-    public function categories(): BelongsToMany
+    public function movie(): BelongsTo
     {
-        return $this->belongsToMany(
-            Category::class,
-        )->withTimestamps();
-    }
-
-    /**
-     * @return HasMany<Quote, $this>
-     */
-    public function quotes(): HasMany
-    {
-        return $this->hasMany(Quote::class);
+        return $this->belongsTo(Movie::class, 'movie_id');
     }
 }
