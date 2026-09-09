@@ -2,7 +2,7 @@ import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 import MainLayout from '@/components/MainLayout/MainLayout';
-import MovieModal from '@/components/modals/MovieModal';
+import MovieModal from '@/components/modals/MovieModal/MovieModal';
 import type { Movie } from '@/types';
 
 import MovieDetails from './components/MovieDetails';

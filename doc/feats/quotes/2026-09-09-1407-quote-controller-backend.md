@@ -7,42 +7,38 @@
 
 ## Summary
 
-Added a quotes backend that mirrors movies: an auth-grouped controller, one shared form request, a single `CreateQuote` action for store and update, and a `QuotePolicy` that gates only update and destroy. The `quotes` table matches the screenshot (`quote` JSON, `movie_id`, `user_id`).
+Quotes backend mirrors movies: auth-grouped `QuoteController`, one `StoreQuoteRequest` for store and update, `CreateQuote` (`updateOrCreate`), and `QuotePolicy::workWith` on update and destroy. The `quotes` table is `quote` JSON, `movie_id`, and `user_id`. Cover is optional media (`quote_cover`).
+
+## Current structure
+
+- Routes (auth group): `POST /quotes`, `GET /quotes/{quote}`, `PUT /quotes/{quote}`, `DELETE /quotes/{quote}`
+- Update and destroy use `can('workWith', 'quote')`. Show and store do not.
+- `StoreQuoteRequest` rules: required `quote_en`, `quote_ka`, `movie_id`; nullable `cover` image
+- `CreateQuote` maps `quote_en` / `quote_ka` into translatable JSON, sets `movie_id`, and attaches cover to `quote_cover` only when a file is present
+- `QuoteController::show` returns `QuoteResource` (not an Inertia page)
+- `Quote` uses Spatie translations on `quote` and Spatie media (`quote_cover`, single file)
+- `QuoteResource` exposes `id`, `quote` translations, `cover` URL or `null`, `movie_id`, `user_id`
+- Frontend type: `resources/js/types/quote.ts`
 
 ## What was made
 
-- Auth-only `quotes.store`, `quotes.show`, `quotes.update`, and `quotes.destroy` routes
-- `QuotePolicy::workWith` on update and destroy
-- Store and update share `StoreQuoteRequest` and `CreateQuote` (`updateOrCreate`)
-- Files created / updated:
-  - `app/Actions/CreateQuote.php`
-  - `app/Http/Controllers/QuoteController.php`
-  - `app/Http/Requests/StoreQuoteRequest.php`
-  - `app/Http/Resources/QuoteResource.php`
-  - `app/Policies/QuotePolicy.php`
-  - `app/Models/Quote.php`
-  - `app/Models/Movie.php`
-  - `app/Models/User.php`
-  - `database/migrations/2026_09_09_100620_create_quotes_table.php`
-  - `database/factories/QuoteFactory.php`
-  - `database/factories/MovieFactory.php`
-  - `resources/js/pages/Quote/Quote.tsx`
-  - `resources/js/types/quote.ts`
-  - `resources/js/types/index.ts`
-  - `routes/web.php`
-  - `tests/Feature/QuoteControllerTest.php`
-  - `.ai/rules/actions.md`
-  - `.ai/rules/routes.md`
+- `app/Actions/CreateQuote.php`
+- `app/Http/Controllers/QuoteController.php`
+- `app/Http/Requests/StoreQuoteRequest.php`
+- `app/Http/Resources/QuoteResource.php`
+- `app/Policies/QuotePolicy.php`
+- `app/Models/Quote.php`
+- `database/migrations/2026_09_09_100620_create_quotes_table.php`
+- `resources/js/types/quote.ts`
+- `routes/web.php` (quote routes in the auth group)
 
 ## How it was made
 
-- Table and model follow the screenshot and Spatie translatable JSON (`quote.en` / `quote.ka`), with indexed FKs that cascade on delete
-- `CreateQuote` maps flat `quote_en`, `quote_ka`, and `movie_id` the same way `CreateMovie` maps bilingual movie fields
-- `StoreQuoteRequest::rules()` is empty on purpose; `quoteDetails()` is ready for the later rule set
-- Policy uses the existing `workWith` name and owner check (`user_id`)
-- Feature tests cover guest redirects, show, owner destroy, and forbidden update/destroy for non-owners
+- Table and model follow the screenshot: JSON `quote`, FKs to movies and users with cascade delete
+- Flat request fields match the movie bilingual pattern (`quote_en` / `quote_ka`)
+- Policy `workWith` is owner-only (`user_id`)
 
 ## Follow-ups
 
-- Add `StoreQuoteRequest` validation rules
-- Wire a quote form on the frontend
+- Wire `QuoteModal` form fields to this request
+- Mount `QuoteModal` on a page

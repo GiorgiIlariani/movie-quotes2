@@ -2,7 +2,7 @@ import { PlusSquare } from 'lucide-react';
 import { useState } from 'react';
 
 import MainLayout from '@/components/MainLayout/MainLayout';
-import MovieModal from '@/components/modals/MovieModal';
+import MovieModal from '@/components/modals/MovieModal/MovieModal';
 import { useTranslations } from '@/hooks/use-translations';
 import type { Movie } from '@/types';
 
