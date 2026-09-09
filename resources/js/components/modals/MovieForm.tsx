@@ -3,7 +3,8 @@ import { Form } from '@inertiajs/react';
 import { useTranslations } from '@/hooks/use-translations';
 import { store, update } from '@/wayfinder/routes/movies';
 
-import { movieFormFields, type MovieFormDefaults } from './helper';
+import type { MovieFormDefaults } from './helper';
+import { movieFormFields } from './helper';
 import { MovieTextArea } from './MovieTextArea';
 import { MovieTextField } from './MovieTextField';
 
