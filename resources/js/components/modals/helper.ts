@@ -11,6 +11,12 @@ export type MovieFormFieldId = Extract<
     | 'description_ka'
 >;
 
+export type MovieFormVariant = 'store' | 'update';
+
+export type MovieFormDefaults = Partial<
+    Record<MovieFormFieldId, string | number>
+>;
+
 export const movieFormFields: {
     id: MovieFormFieldId;
     lang?: string;

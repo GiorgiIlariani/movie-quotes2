@@ -7,6 +7,7 @@ type MovieTextFieldProps = Omit<ComponentProps<'input'>, 'id'> & {
     label: string;
     lang?: string;
     error?: string;
+    labelClassName?: string;
 };
 
 export const MovieTextField = ({
@@ -15,6 +16,7 @@ export const MovieTextField = ({
     lang,
     error,
     className,
+    labelClassName,
     ...props
 }: MovieTextFieldProps) => {
     return (
@@ -27,7 +29,10 @@ export const MovieTextField = ({
             >
                 <label
                     htmlFor={id}
-                    className="shrink-0 text-sm whitespace-nowrap text-muted"
+                    className={cn(
+                        'shrink-0 text-sm whitespace-nowrap text-muted',
+                        labelClassName,
+                    )}
                 >
                     {label}
                 </label>

@@ -14,24 +14,27 @@ class CreateMovie
     /**
      * @param  MovieDetails  $movieDetails
      */
-    public function handle(array $movieDetails, User $user): Movie
+    public function handle(array $movieDetails, User $user, ?Movie $movie = null): Movie
     {
         /** @var Movie $movie */
-        $movie = $user->movies()->create([
-            'title' => [
-                'en' => $movieDetails['title_en'],
-                'ka' => $movieDetails['title_ka'],
+        $movie = $user->movies()->updateOrCreate(
+            ['id' => $movie?->id],
+            [
+                'title' => [
+                    'en' => $movieDetails['title_en'],
+                    'ka' => $movieDetails['title_ka'],
+                ],
+                'director' => [
+                    'en' => $movieDetails['director_en'],
+                    'ka' => $movieDetails['director_ka'],
+                ],
+                'description' => [
+                    'en' => $movieDetails['description_en'],
+                    'ka' => $movieDetails['description_ka'],
+                ],
+                'release_year' => $movieDetails['release_year'],
             ],
-            'director' => [
-                'en' => $movieDetails['director_en'],
-                'ka' => $movieDetails['director_ka'],
-            ],
-            'description' => [
-                'en' => $movieDetails['description_en'],
-                'ka' => $movieDetails['description_ka'],
-            ],
-            'release_year' => $movieDetails['release_year'],
-        ]);
+        );
 
         $movie->addMedia($movieDetails['cover'])->toMediaCollection('movie_cover');
 

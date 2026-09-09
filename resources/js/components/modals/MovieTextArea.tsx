@@ -7,6 +7,7 @@ type MovieTextAreaProps = Omit<ComponentProps<'textarea'>, 'id'> & {
     label: string;
     lang?: string;
     error?: string;
+    variant: 'update' | 'store';
 };
 
 export const MovieTextArea = ({
@@ -15,6 +16,7 @@ export const MovieTextArea = ({
     lang,
     error,
     className,
+    variant,
     ...props
 }: MovieTextAreaProps) => {
     return (
@@ -27,7 +29,10 @@ export const MovieTextArea = ({
             >
                 <label
                     htmlFor={id}
-                    className="shrink-0 pt-0.5 text-sm whitespace-nowrap text-muted"
+                    className={cn(
+                        'shrink-0 pt-0.5 text-sm whitespace-nowrap',
+                        `${variant === 'store' ? 'text-muted' : 'text-white'}`,
+                    )}
                 >
                     {label}
                 </label>

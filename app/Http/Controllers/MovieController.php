@@ -52,6 +52,16 @@ class MovieController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     */
+    public function update(StoreMovieRequest $request, Movie $movie, CreateMovie $action): RedirectResponse
+    {
+        $action->handle($request->movieDetails(), $request->user(), $movie);
+
+        return back();
+    }
+
+    /**
      * Remove the specified resource from storage.
      */
     public function destroy(Movie $movie): RedirectResponse

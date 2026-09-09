@@ -3,11 +3,16 @@ export type MovieCategory = {
     category_title: string;
 };
 
+export type TranslatedText = {
+    en: string;
+    ka: string;
+};
+
 export type Movie = {
     id: number;
-    title: string;
-    director: string;
-    description: string;
+    title: TranslatedText;
+    director: TranslatedText;
+    description: TranslatedText;
     release_year: number;
     cover: string;
     categories: MovieCategory[];

@@ -37,7 +37,11 @@ const Movies = ({ movies }: MoviesPageProps) => {
                 </button>
             </div>
 
-            <MovieModal open={modalOpen} onOpenChange={setModalOpen} />
+            <MovieModal
+                open={modalOpen}
+                onOpenChange={setModalOpen}
+                variant="store"
+            />
 
             <section className="mt-6 grid gap-15 px-8 sm:grid-cols-2 xl:grid-cols-3">
                 {movies.data.map((movie) => (

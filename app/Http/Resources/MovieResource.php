@@ -5,7 +5,6 @@ namespace App\Http\Resources;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\App;
 
 /**
  * @mixin Movie
@@ -17,13 +16,11 @@ class MovieResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $locale = App::currentLocale();
-
         return [
             'id' => $this->id,
-            'title' => $this->getTranslation('title', $locale),
-            'director' => $this->getTranslation('director', $locale),
-            'description' => $this->getTranslation('description', $locale),
+            'title' => $this->getTranslations('title'),
+            'director' => $this->getTranslations('director'),
+            'description' => $this->getTranslations('description'),
             'cover' => $this->getFirstMediaUrl('movie_cover'),
             'release_year' => $this->release_year,
         ];

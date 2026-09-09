@@ -10,14 +10,24 @@ import {
 import { useTranslations } from '@/hooks/use-translations';
 import Avatar from '@/images/Avatar.png';
 
+import type { MovieFormDefaults, MovieFormVariant } from './helper';
 import MovieForm from './MovieForm';
 
-type MovieModalProps = {
+type SharedProps = {
     open: boolean;
     onOpenChange: (open: boolean) => void;
+    defaults?: MovieFormDefaults;
 };
 
-const MovieModal = ({ open, onOpenChange }: MovieModalProps) => {
+type MovieModalProps =
+    | (SharedProps & { variant: Extract<MovieFormVariant, 'store'> })
+    | (SharedProps & {
+          variant: Extract<MovieFormVariant, 'update'>;
+          movieId: number;
+      });
+
+const MovieModal = (props: MovieModalProps) => {
+    const { open, onOpenChange, defaults, variant } = props;
     const user = usePage().props.auth.user;
     const { movies } = useTranslations();
 
@@ -45,7 +55,20 @@ const MovieModal = ({ open, onOpenChange }: MovieModalProps) => {
                     <p className="text-base text-white">{user.name}</p>
                 </div>
 
-                <MovieForm onOpenChange={onOpenChange} />
+                {variant === 'update' ? (
+                    <MovieForm
+                        variant="update"
+                        movieId={props.movieId}
+                        defaults={defaults}
+                        onOpenChange={onOpenChange}
+                    />
+                ) : (
+                    <MovieForm
+                        variant="store"
+                        defaults={defaults}
+                        onOpenChange={onOpenChange}
+                    />
+                )}
             </DialogContent>
         </Dialog>
     );

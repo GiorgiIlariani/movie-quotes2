@@ -1,3 +1,4 @@
+import { usePage } from '@inertiajs/react';
 import { useState } from 'react';
 
 import MainLayout from '@/components/MainLayout/MainLayout';
@@ -14,6 +15,7 @@ type MoviePageProps = {
 
 const MoviePage = ({ movie: { data } }: MoviePageProps) => {
     const [modalOpen, setModalOpen] = useState(false);
+    const { locale } = usePage().props;
 
     return (
         <MainLayout>
@@ -28,12 +30,30 @@ const MoviePage = ({ movie: { data } }: MoviePageProps) => {
                 />
 
                 <MovieDetails
-                    {...data}
+                    id={data.id}
+                    title={data.title[locale]}
+                    director={data.director[locale]}
+                    description={data.description[locale]}
+                    release_year={data.release_year}
                     onOpenModal={() => setModalOpen(true)}
                 />
             </div>
 
-            <MovieModal open={modalOpen} onOpenChange={setModalOpen} />
+            <MovieModal
+                open={modalOpen}
+                onOpenChange={setModalOpen}
+                variant="update"
+                movieId={data.id}
+                defaults={{
+                    title_en: data.title.en,
+                    title_ka: data.title.ka,
+                    director_en: data.director.en,
+                    director_ka: data.director.ka,
+                    description_en: data.description.en,
+                    description_ka: data.description.ka,
+                    release_year: data.release_year,
+                }}
+            />
         </MainLayout>
     );
 };
