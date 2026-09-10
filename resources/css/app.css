@@ -37,5 +37,5 @@
 }
 
 .actionBtn {
-    @apply cursor-pointer rounded-sm px-6 py-4.5 text-white;
+    @apply cursor-pointer rounded-sm px-4 py-2 text-white;
 }

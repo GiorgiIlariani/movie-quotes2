@@ -10,3 +10,6 @@ Use a single EmailVerificationController. There is no verification.notice route.
 
 ## Quote routes in the auth group
 Register quote show, store, update, and destroy in the auth group. Protect update and destroy with can('workWith', 'quote'). Do not attach the policy to show or store.
+
+## Movie options is a JSON route
+Register GET /movies/options as movies.options before /movies/{movie}. It returns MovieOptionResource JSON for the quote selector. Keep it in the auth group. Do not attach the movie policy.

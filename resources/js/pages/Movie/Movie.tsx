@@ -1,8 +1,11 @@
 import { usePage } from '@inertiajs/react';
+import { PlusSquare } from 'lucide-react';
 import { useState } from 'react';
 
 import MainLayout from '@/components/MainLayout/MainLayout';
 import MovieModal from '@/components/modals/MovieModal/MovieModal';
+import QuoteModal from '@/components/modals/QuoteModal/QuoteModal';
+import { useTranslations } from '@/hooks/use-translations';
 import type { Movie } from '@/types';
 
 import MovieDetails from './components/MovieDetails';
@@ -15,7 +18,9 @@ type MoviePageProps = {
 
 const MoviePage = ({ movie: { data } }: MoviePageProps) => {
     const [modalOpen, setModalOpen] = useState(false);
+    const [quoteModalOpen, setQuoteModalOpen] = useState(false);
     const { locale } = usePage().props;
+    const { quotes } = useTranslations();
 
     return (
         <MainLayout>
@@ -38,6 +43,29 @@ const MoviePage = ({ movie: { data } }: MoviePageProps) => {
                     onOpenModal={() => setModalOpen(true)}
                 />
             </div>
+
+            <div className="mt-4 px-8 lg:px-0">
+                <button
+                    onClick={() => setQuoteModalOpen(true)}
+                    className="actionBtn flex items-center gap-2 bg-brand"
+                >
+                    <PlusSquare className="size-5" strokeWidth={2} />{' '}
+                    {quotes.add_quote}
+                </button>
+
+                <div className="mt-6 h-px w-full bg-white" />
+            </div>
+
+            <QuoteModal
+                onOpenChange={setQuoteModalOpen}
+                open={quoteModalOpen}
+                // movieId={data.id}
+                movieAuthor={data.director[locale]}
+                movieCover={data.cover}
+                movieYear={data.release_year}
+                movieTitle={data.title[locale]}
+                variant="store"
+            />
 
             <MovieModal
                 open={modalOpen}

@@ -17,7 +17,7 @@ class QuoteController extends Controller
     {
         $quote = $action->handle($request->quoteDetails(), $request->user());
 
-        return to_route('quotes.show', $quote);
+        return to_route('movies.index', $quote);
     }
 
     /**

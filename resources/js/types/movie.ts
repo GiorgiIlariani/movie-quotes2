@@ -17,3 +17,9 @@ export type Movie = {
     cover: string;
     categories: MovieCategory[];
 };
+
+export type MovieOption = {
+    id: number;
+    title: TranslatedText;
+    release_year: number;
+};

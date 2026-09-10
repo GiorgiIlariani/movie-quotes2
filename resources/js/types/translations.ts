@@ -22,6 +22,18 @@ export type LocaleTranslations = {
     ka: string;
 };
 
+export type QuoteTranslations = {
+    add_quote: string;
+    new_quote: string;
+    new_quote_description: string;
+    quote_en_placeholder: string;
+    quote_ka_placeholder: string;
+    drag_image: string;
+    choose_file: string;
+    change_photo: string;
+    select_movie: string;
+};
+
 export type MovieTranslations = {
     my_list: string;
     total: string;
@@ -44,4 +56,5 @@ export type Translations = {
     nav: NavTranslations;
     locale: LocaleTranslations;
     movies: MovieTranslations;
+    quotes: QuoteTranslations;
 };

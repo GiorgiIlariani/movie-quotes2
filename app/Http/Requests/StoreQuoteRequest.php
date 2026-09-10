@@ -24,7 +24,7 @@ class StoreQuoteRequest extends FormRequest
             'quote_en' => ['required', 'string', 'max:1000'],
             'quote_ka' => ['required', 'string', 'max:1000'],
             'cover' => ['nullable', 'image', 'max:5120'],
-            'movie_id' => ['required', 'number'],
+            'movie_id' => ['required', 'integer'],
         ];
     }
 

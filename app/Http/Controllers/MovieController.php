@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Actions\CreateMovie;
 use App\Http\Requests\StoreMovieRequest;
+use App\Http\Resources\MovieOptionResource;
 use App\Http\Resources\MovieResource;
 use App\Models\Movie;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -29,6 +31,19 @@ class MovieController extends Controller
         return Inertia::render('Movies/Movies', [
             'movies' => MovieResource::collection($movies),
         ]);
+    }
+
+    /**
+     * Return the authenticated user's movies for the quote selector.
+     */
+    public function options(Request $request): AnonymousResourceCollection
+    {
+        $movies = $request->user()
+            ->movies()
+            ->latest()
+            ->get(['id', 'title', 'release_year']);
+
+        return MovieOptionResource::collection($movies);
     }
 
     /**

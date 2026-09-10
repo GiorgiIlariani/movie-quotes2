@@ -51,6 +51,7 @@ class HandleInertiaRequests extends Middleware
                 'home' => Lang::get('home'),
                 'auth' => Lang::get('auth_ui'),
                 'movies' => Lang::get('movies'),
+                'quotes' => Lang::get('quotes'),
                 'locale' => Lang::get('locale'),
             ],
         ];
