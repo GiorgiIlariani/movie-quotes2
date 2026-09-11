@@ -2,15 +2,16 @@ import { Form } from '@inertiajs/react';
 
 import ImageUpload from '@/components/shared/ImageUpload';
 import { useTranslations } from '@/hooks/use-translations';
+import { cn } from '@/lib/utils';
+import { store } from '@/wayfinder/routes/quotes';
 
 import type { MovieProps } from './helper';
 import MovieSelector from './MovieSelector';
 import { QuoteTextArea } from './QuoteTextArea';
-import { cn } from '@/lib/utils';
-import { store } from '@/wayfinder/routes/quotes';
 
 type Props = MovieProps & {
     variant: 'store' | 'update';
+    onOpenChange: (open: boolean) => void;
 };
 
 const QuoteForm = ({
@@ -20,13 +21,18 @@ const QuoteForm = ({
     movieCover,
     movieTitle,
     variant,
+    onOpenChange,
 }: Props) => {
     const { quotes, locale } = useTranslations();
 
     const flexDirection = variant === 'store' ? 'flex-col' : 'flex-col-reverse';
 
     return (
-        <Form {...store.form()} encType="multipart/form-data">
+        <Form
+            {...store.form()}
+            encType="multipart/form-data"
+            onSuccess={() => onOpenChange(false)}
+        >
             {movieId ? (
                 <input type="hidden" name="movie_id" value={movieId} />
             ) : null}

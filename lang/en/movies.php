@@ -15,4 +15,7 @@ return [
     'director_ka' => 'რეჟისორი:',
     'description_en' => 'Description:',
     'description_ka' => 'ფილმის აღწერა:',
+    'movie_cover_hint' => 'Drag & drop your image here or',
+    'movie_cover_upload' => 'Choose file',
+    'movie_cover_change' => 'Change Photo',
 ];

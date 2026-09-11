@@ -27,6 +27,7 @@ export type LocaleTranslations = {
 
 export type QuoteTranslations = {
     add_quote: string;
+    write_new_quote: string;
     new_quote: string;
     new_quote_description: string;
     quote_en_placeholder: string;
@@ -58,6 +59,9 @@ export type MovieTranslations = {
     director_ka: string;
     description_en: string;
     description_ka: string;
+    movie_cover_hint: string;
+    movie_cover_upload: string;
+    movie_cover_change: string;
 };
 
 export type Translations = {

@@ -6,7 +6,10 @@ use App\Actions\CreateMovie;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Resources\MovieOptionResource;
 use App\Http\Resources\MovieResource;
+use App\Http\Resources\QuoteResource;
 use App\Models\Movie;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -24,12 +27,10 @@ class MovieController extends Controller
             ->movies()
             ->with(['categories', 'media'])
             ->latest()
-            ->limit(10)
-            ->get();
-        // to do: infinite scroll
+            ->paginate(10);
 
         return Inertia::render('Movies/Movies', [
-            'movies' => MovieResource::collection($movies),
+            'movies' => Inertia::scroll(MovieResource::collection($movies)),
         ]);
     }
 
@@ -59,14 +60,25 @@ class MovieController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Movie $movie): Response
+    public function show(Request $request, Movie $movie): Response
     {
-        $movie->load([
-            'quotes' => fn ($query) => $query->with('media')->latest(),
-        ]);
+        $quotes = $movie->quotes()
+            ->with([
+                'media',
+                'movie',
+                'user',
+                'comments' => fn (HasMany $query) => $query->with('user')->oldest(),
+            ])
+            ->withCount(['likes', 'comments'])
+            ->withExists([
+                'likes as liked' => fn (Builder $query) => $query->where('user_id', $request->user()->id),
+            ])
+            ->latest()
+            ->paginate(10);
 
         return Inertia::render('Movie/Movie', [
             'movie' => new MovieResource($movie),
+            'quotes' => Inertia::scroll(QuoteResource::collection($quotes)),
         ]);
     }
 

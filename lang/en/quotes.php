@@ -2,6 +2,7 @@
 
 return [
     'add_quote' => 'Add Quote',
+    'write_new_quote' => 'Write new quote',
     'new_quote' => 'New Quote',
     'new_quote_description' => 'Create a new quote in English and Georgian.',
     'quote_en_placeholder' => 'Start create new quote',

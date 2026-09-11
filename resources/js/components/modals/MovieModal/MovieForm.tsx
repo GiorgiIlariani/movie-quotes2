@@ -7,6 +7,7 @@ import type { MovieFormDefaults } from './helper';
 import { movieFormFields } from './helper';
 import { MovieTextArea } from './MovieTextArea';
 import { MovieTextField } from './MovieTextField';
+import ImageUpload from '@/components/shared/ImageUpload';
 
 type SharedProps = {
     onOpenChange: (open: boolean) => void;
@@ -55,6 +56,14 @@ const MovieForm = (props: Props) => {
                             />
                         ),
                     )}
+
+                    <ImageUpload
+                        name="movie_cover"
+                        hint={movies.movie_cover_hint}
+                        buttonLabel={movies.movie_cover_upload}
+                        changeLabel={movies.movie_cover_change}
+                        src={defaults?.cover}
+                    />
 
                     <button
                         type="submit"

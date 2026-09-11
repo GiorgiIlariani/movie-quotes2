@@ -20,9 +20,9 @@ class QuoteController extends Controller
      */
     public function store(StoreQuoteRequest $request, CreateQuote $action): RedirectResponse
     {
-        $quote = $action->handle($request->quoteDetails(), $request->user());
+        $action->handle($request->quoteDetails(), $request->user());
 
-        return to_route('movies.index', $quote);
+        return back();
     }
 
     /**

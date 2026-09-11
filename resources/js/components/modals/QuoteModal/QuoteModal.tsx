@@ -8,6 +8,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import { useTranslations } from '@/hooks/use-translations';
+import Avatar from '@/images/Avatar.png';
 
 import type { MovieProps } from './helper';
 import QuoteForm from './QuoteForm';
@@ -49,7 +50,7 @@ const QuoteModal = ({
                 <section className="mt-6 px-9">
                     <div className="flex items-center gap-2">
                         <img
-                            src={user.avatar}
+                            src={user.avatar || Avatar}
                             alt={user.name}
                             className="h-10 w-10 rounded-full object-cover"
                         />
@@ -64,6 +65,7 @@ const QuoteModal = ({
                         movieId={movieId}
                         movieTitle={movieTitle}
                         variant={variant}
+                        onOpenChange={onOpenChange}
                     />
                 </section>
             </DialogContent>

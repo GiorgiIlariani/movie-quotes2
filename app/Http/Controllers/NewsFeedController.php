@@ -31,10 +31,10 @@ class NewsFeedController extends Controller
                 'likes as liked' => fn (Builder $query) => $query->where('user_id', $request->user()->id),
             ])
             ->latest()
-            ->get();
+            ->paginate(10);
 
         return Inertia::render('NewsFeed/NewsFeed', [
-            'quotes' => QuoteResource::collection($quotes),
+            'quotes' => Inertia::scroll(QuoteResource::collection($quotes)),
             'testPing' => session('test_ping'),
         ]);
     }

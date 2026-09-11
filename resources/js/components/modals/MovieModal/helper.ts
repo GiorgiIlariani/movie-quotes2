@@ -15,7 +15,9 @@ export type MovieFormVariant = 'store' | 'update';
 
 export type MovieFormDefaults = Partial<
     Record<MovieFormFieldId, string | number>
->;
+> & {
+    cover?: string | null;
+};
 
 export const movieFormFields: {
     id: MovieFormFieldId;

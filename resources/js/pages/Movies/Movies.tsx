@@ -7,6 +7,7 @@ import { useTranslations } from '@/hooks/use-translations';
 import type { Movie } from '@/types';
 
 import MovieCard from './components/MovieCard';
+import { InfiniteScroll } from '@inertiajs/react';
 
 type MoviesPageProps = {
     movies: {
@@ -43,11 +44,13 @@ const Movies = ({ movies }: MoviesPageProps) => {
                 variant="store"
             />
 
-            <section className="mt-6 grid gap-15 px-8 sm:grid-cols-2 xl:grid-cols-3">
-                {movies.data.map((movie) => (
-                    <MovieCard key={movie.id} movie={movie} />
-                ))}
-            </section>
+            <InfiniteScroll data="movies">
+                <section className="mt-6 grid gap-15 px-8 sm:grid-cols-2 xl:grid-cols-3">
+                    {movies.data.map((movie) => (
+                        <MovieCard key={movie.id} movie={movie} />
+                    ))}
+                </section>
+            </InfiniteScroll>
         </MainLayout>
     );
 };

@@ -2,6 +2,7 @@
 
 return [
     'add_quote' => 'ციტატის დამატება',
+    'write_new_quote' => 'დაწერე ახალი ციტატა',
     'new_quote' => 'ახალი ციტატა',
     'new_quote_description' => 'დაამატე ახალი ციტატა ინგლისურად და ქართულად.',
     'quote_en_placeholder' => 'Start create new quote',

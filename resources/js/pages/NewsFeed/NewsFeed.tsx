@@ -1,69 +1,54 @@
-import { Form } from '@inertiajs/react';
-import { useEchoPublic } from '@laravel/echo-react';
+import { useState } from 'react';
+import { Pencil } from 'lucide-react';
 
 import MainLayout from '@/components/MainLayout/MainLayout';
+import QuoteModal from '@/components/modals/QuoteModal/QuoteModal';
 import { useTranslations } from '@/hooks/use-translations';
 import type { Quote } from '@/types';
-import { ping } from '@/wayfinder/routes/news_feed';
+import { InfiniteScroll } from '@inertiajs/react';
 
 import QuoteCard from './components/QuoteCard';
-import { useConnectionStatus } from '@laravel/echo-react';
-
-// "connected" | "connecting" | "reconnecting" | "disconnected" | "failed"
-
-type TestPingPayload = {
-    kind: string;
-    message: string;
-    number: number;
-};
 
 type NewsFeedPageProps = {
     quotes: {
         data: Quote[];
     };
-    testPing?: TestPingPayload | null;
 };
 
-const NewsFeed = ({ quotes, testPing }: NewsFeedPageProps) => {
+const NewsFeed = ({ quotes }: NewsFeedPageProps) => {
     const { quotes: t } = useTranslations();
-
-    useEchoPublic<TestPingPayload>('testing', 'TestPing', (e) => {
-        console.log('gg');
-    });
+    const [quoteModalOpen, setQuoteModalOpen] = useState(false);
 
     return (
         <MainLayout>
-            <div className="mb-6 flex flex-col gap-3 px-8 lg:px-0">
-                <Form {...ping.form()} options={{ preserveScroll: true }}>
-                    <button
-                        type="submit"
-                        className="actionBtn bg-brand px-4 py-2 hover:bg-brand/90"
-                    >
-                        Fire random event
-                    </button>
-                </Form>
-                {testPing ? (
-                    <p className="text-sm text-cream">
-                        {testPing.kind} · {testPing.number} · {testPing.message}
-                    </p>
+            <div className="mx-auto flex w-full max-w-4xl flex-col items-start gap-8 lg:mx-0 lg:px-0">
+                <button
+                    type="button"
+                    onClick={() => setQuoteModalOpen(true)}
+                    className="actionBtn flex w-full items-center gap-2 rounded-xl! p-2 py-4! text-xl lg:bg-surface"
+                >
+                    <Pencil className="size-5" strokeWidth={2} />
+                    {t.write_new_quote}
+                </button>
+
+                {quotes.data.length === 0 ? (
+                    <p className="text-white/70">{t.empty_feed}</p>
                 ) : (
-                    <p className="text-sm text-white/50">
-                        Last event will show here after you click.
-                    </p>
+                    <InfiniteScroll data="quotes">
+                        <section className="flex w-full flex-col items-start gap-8">
+                            {quotes.data.map((quote) => (
+                                <QuoteCard key={quote.id} quote={quote} />
+                            ))}
+                        </section>
+                    </InfiniteScroll>
                 )}
             </div>
 
-            {quotes.data.length === 0 ? (
-                <p className="mt-6 px-8 text-white/70 lg:px-0">
-                    {t.empty_feed}
-                </p>
-            ) : (
-                <section className="mx-auto mt-6 flex w-full max-w-2xl flex-col gap-8 lg:px-0">
-                    {quotes.data.map((quote) => (
-                        <QuoteCard key={quote.id} quote={quote} />
-                    ))}
-                </section>
-            )}
+            <QuoteModal
+                open={quoteModalOpen}
+                onOpenChange={setQuoteModalOpen}
+                variant="store"
+            />
         </MainLayout>
     );
 };
