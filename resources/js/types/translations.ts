@@ -32,6 +32,12 @@ export type QuoteTranslations = {
     choose_file: string;
     change_photo: string;
     select_movie: string;
+    empty_feed: string;
+    like: string;
+    unlike: string;
+    comment_placeholder: string;
+    comment_submit: string;
+    delete_comment: string;
 };
 
 export type MovieTranslations = {

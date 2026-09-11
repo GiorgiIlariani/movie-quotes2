@@ -10,4 +10,10 @@ return [
     'choose_file' => 'Choose file',
     'change_photo' => 'Change Photo',
     'select_movie' => 'Select movie',
+    'empty_feed' => 'No quotes yet.',
+    'like' => 'Like',
+    'unlike' => 'Unlike',
+    'comment_placeholder' => 'Write a comment',
+    'comment_submit' => 'Comment',
+    'delete_comment' => 'Delete',
 ];

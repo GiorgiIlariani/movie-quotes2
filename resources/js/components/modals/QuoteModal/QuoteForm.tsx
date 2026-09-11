@@ -26,7 +26,7 @@ const QuoteForm = ({
     const flexDirection = variant === 'store' ? 'flex-col' : 'flex-col-reverse';
 
     return (
-        <Form action={store()}>
+        <Form {...store.form()} encType="multipart/form-data">
             {movieId ? (
                 <input type="hidden" name="movie_id" value={movieId} />
             ) : null}
@@ -53,7 +53,7 @@ const QuoteForm = ({
                             hint={quotes.drag_image}
                             buttonLabel={quotes.choose_file}
                             changeLabel="change image"
-                            name="quote_cover"
+                            name="cover"
                         />
                     </>
                 ) : (
@@ -62,7 +62,7 @@ const QuoteForm = ({
                             hint={quotes.drag_image}
                             buttonLabel={quotes.choose_file}
                             changeLabel="change image"
-                            name="quote_cover"
+                            name="cover"
                         />
                         <MovieSelector />
                     </>

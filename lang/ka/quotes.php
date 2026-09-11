@@ -10,4 +10,10 @@ return [
     'choose_file' => 'აირჩიე ფაილი',
     'change_photo' => 'ფოტოს შეცვლა',
     'select_movie' => 'აირჩიე ფილმი',
+    'empty_feed' => 'ციტატები ჯერ არ არის.',
+    'like' => 'მოწონება',
+    'unlike' => 'მოწონების გაუქმება',
+    'comment_placeholder' => 'დაწერე კომენტარი',
+    'comment_submit' => 'კომენტარი',
+    'delete_comment' => 'წაშლა',
 ];

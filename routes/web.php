@@ -4,7 +4,10 @@ use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\NewsFeedController;
+use App\Http\Controllers\QuoteCommentController;
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\QuoteLikeController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +40,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
+    Route::get('/news-feed', [NewsFeedController::class, 'index'])->name('news_feed.index');
+
     Route::controller(MovieController::class)->group(function () {
         Route::get('/movies', 'index')->name('movies.index');
         Route::post('/movies', 'store')->name('movies.store');
@@ -52,5 +57,13 @@ Route::middleware('auth')->group(function () {
         Route::put('/quotes/{quote}', 'update')->name('quotes.update')->can('workWith', 'quote');
         Route::delete('/quotes/{quote}', 'destroy')->name('quotes.destroy')->can('workWith', 'quote');
     });
+
+    Route::post('/quotes/{quote}/likes', [QuoteLikeController::class, 'store'])
+        ->name('quotes.likes.store');
+    Route::post('/quotes/{quote}/comments', [QuoteCommentController::class, 'store'])
+        ->name('quotes.comments.store');
+    Route::delete('/comments/{comment}', [QuoteCommentController::class, 'destroy'])
+        ->name('comments.destroy')
+        ->can('delete', 'comment');
 
 });

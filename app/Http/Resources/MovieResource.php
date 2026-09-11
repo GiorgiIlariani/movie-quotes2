@@ -23,6 +23,7 @@ class MovieResource extends JsonResource
             'description' => $this->getTranslations('description'),
             'cover' => $this->getFirstMediaUrl('movie_cover'),
             'release_year' => $this->release_year,
+            'quotes' => QuoteResource::collection($this->whenLoaded('quotes')),
         ];
     }
 }

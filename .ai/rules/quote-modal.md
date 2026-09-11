@@ -22,3 +22,6 @@ When QuoteForm has no movieId, render MovieSelector as a shadcn Select. Fetch th
 
 ## MovieSelector fetches via useHttp
 MovieSelector loads the user's movies with useHttp from movies.options when it mounts. Do not read userMovies from page props.
+
+## Quote cover field is cover
+QuoteForm ImageUpload must use name cover and Form encType multipart/form-data. StoreQuoteRequest and CreateQuote read cover, then attach it to the quote_cover media collection. Do not submit quote_cover.

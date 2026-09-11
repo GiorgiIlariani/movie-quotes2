@@ -1,3 +1,5 @@
+import type { Quote } from './quote';
+
 export type MovieCategory = {
     id: number;
     category_title: string;
@@ -16,6 +18,7 @@ export type Movie = {
     release_year: number;
     cover: string;
     categories: MovieCategory[];
+    quotes?: Quote[];
 };
 
 export type MovieOption = {

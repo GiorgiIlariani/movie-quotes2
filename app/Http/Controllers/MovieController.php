@@ -61,6 +61,10 @@ class MovieController extends Controller
      */
     public function show(Movie $movie): Response
     {
+        $movie->load([
+            'quotes' => fn ($query) => $query->with('media')->latest(),
+        ]);
+
         return Inertia::render('Movie/Movie', [
             'movie' => new MovieResource($movie),
         ]);
