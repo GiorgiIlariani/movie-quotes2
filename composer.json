@@ -16,6 +16,7 @@
         "laravel/socialite": "^5.30",
         "laravel/tinker": "^3.0",
         "laravel/wayfinder": "dev-next",
+        "pusher/pusher-php-server": "^7.3",
         "spatie/laravel-medialibrary": "^11.23",
         "spatie/laravel-translatable": "^6.14"
     },

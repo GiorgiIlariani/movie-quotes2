@@ -6,7 +6,12 @@ use App\Actions\CreateQuote;
 use App\Http\Requests\StoreQuoteRequest;
 use App\Http\Resources\QuoteResource;
 use App\Models\Quote;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class QuoteController extends Controller
 {
@@ -23,9 +28,21 @@ class QuoteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Quote $quote): QuoteResource
+    public function show(Request $request, Quote $quote): Response
     {
-        return QuoteResource::make($quote);
+        $quote->load([
+            'media',
+            'movie',
+            'user',
+            'comments' => fn (HasMany $query) => $query->with('user')->oldest(),
+        ])->loadCount(['likes', 'comments'])
+            ->loadExists([
+                'likes as liked' => fn (Builder $query) => $query->where('user_id', $request->user()->id),
+            ]);
+
+        return Inertia::render('Quotes/Show', [
+            'quote' => new QuoteResource($quote),
+        ]);
     }
 
     /**

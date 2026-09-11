@@ -1,9 +1,9 @@
 import { Form, Link } from '@inertiajs/react';
 
 import LocaleSelect from '@/components/MainLayout/Components/LocaleSelect';
+import NotificationBell from '@/components/MainLayout/Components/NotificationBell';
 import { Button } from '@/components/ui/button';
 import { useTranslations } from '@/hooks/use-translations';
-import Bell from '@/images/icons/Bell.png';
 import { destroy } from '@/wayfinder/App/Http/Controllers/SessionController';
 import { home } from '@/wayfinder/routes';
 
@@ -17,13 +17,7 @@ const Header = () => {
             </Link>
 
             <div className="flex items-center gap-6">
-                <button type="button" className="relative cursor-pointer">
-                    <img
-                        src={Bell}
-                        alt={header.notifications}
-                        className="size-6"
-                    />
-                </button>
+                <NotificationBell />
 
                 <LocaleSelect />
 

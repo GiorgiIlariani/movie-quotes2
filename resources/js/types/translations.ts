@@ -2,6 +2,9 @@ export type HeaderTranslations = {
     brand: string;
     log_out: string;
     notifications: string;
+    liked_your_quote: string;
+    commented_on_your_quote: string;
+    no_notifications: string;
     language: string;
     search: string;
     open_navigation: string;

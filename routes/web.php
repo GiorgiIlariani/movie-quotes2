@@ -5,6 +5,7 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\NewsFeedController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\QuoteCommentController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\QuoteLikeController;
@@ -41,6 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');
 
     Route::get('/news-feed', [NewsFeedController::class, 'index'])->name('news_feed.index');
+    Route::post('/news-feed/ping', [NewsFeedController::class, 'ping'])->name('news_feed.ping');
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('/notifications/read', [NotificationController::class, 'markAsRead'])->name('notifications.read');
 
     Route::controller(MovieController::class)->group(function () {
         Route::get('/movies', 'index')->name('movies.index');

@@ -19,3 +19,6 @@ Register GET /news-feed as news_feed.index inside the auth group. NewsFeedContro
 
 ## Quote likes and comments are auth-only
 POST /quotes/{quote}/likes is quotes.likes.store (toggle, no policy). POST /quotes/{quote}/comments is quotes.comments.store (no policy). DELETE /comments/{comment} is comments.destroy and uses can('delete', 'comment') so only the comment author can delete.
+
+## Notifications are fetched on demand
+GET /notifications is notifications.index (JSON list + unread_count). POST /notifications/read is notifications.read. Keep both in the auth group. Do not share notifications on Inertia middleware.

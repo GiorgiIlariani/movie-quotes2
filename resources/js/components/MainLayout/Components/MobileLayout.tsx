@@ -2,6 +2,7 @@ import { Menu } from 'lucide-react';
 import type { PropsWithChildren } from 'react';
 
 import LocaleSelect from '@/components/MainLayout/Components/LocaleSelect';
+import NotificationBell from '@/components/MainLayout/Components/NotificationBell';
 import {
     Sheet,
     SheetContent,
@@ -9,7 +10,6 @@ import {
     SheetTrigger,
 } from '@/components/ui/sheet';
 import { useTranslations } from '@/hooks/use-translations';
-import Bell from '@/images/icons/Bell.png';
 import Search from '@/images/icons/Search.png';
 import Navigation from './Navigation';
 
@@ -43,11 +43,7 @@ const MobileLayout = ({ children }: PropsWithChildren) => {
                         alt={header.search}
                         className="hidden size-6 lg:block"
                     />
-                    <img
-                        src={Bell}
-                        alt={header.notifications}
-                        className="size-6"
-                    />
+                    <NotificationBell />
                     <LocaleSelect />
                 </div>
             </header>
